@@ -227,6 +227,14 @@
               });
             }
         }
+	document.getElementById("toggleImageBtn").addEventListener("click", function() {
+                var imageContainer = document.getElementById("imageContainer");
+                if (imageContainer.style.display === "none") {
+                    imageContainer.style.display = "block";
+                } else {
+                    imageContainer.style.display = "none";
+                }
+        });
         var map = L.map('map', {
             zoomControl:false, maxZoom:18, minZoom:1
         })
