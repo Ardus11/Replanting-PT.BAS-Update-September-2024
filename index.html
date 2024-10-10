@@ -93,6 +93,35 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
+	 .symbol-container {
+            position: absolute;
+            top: 220px; /* Sesuaikan posisi vertikal sesuai kebutuhan */
+            left: 11px; /* Sesuaikan posisi horizontal sesuai kebutuhan */
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .symbol-button {
+            background-color: #f5f5f6;
+            color: rgb(9, 7, 7);
+            padding: 8px;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .symbol-button:hover {
+        }
+        .image-container img {
+            max-width: 3500%;
+            height: auto;
+            position: absolute;
+            top: 1px;
+            left: 40px;
+            display: inline-block;
+        }
         </style>
         <title>Replanting PT. BAS 2024</title>
 	<script type="text/javascript">
@@ -148,6 +177,13 @@
                 </div>
             </div>
             </div>
+	    <div class="symbol-container">
+                <button id="toggleImageBtn" class="symbol-button">
+                    <i class="fas fa-chart-bar"></i> <!-- Menggunakan ikon FontAwesome -->
+                </button>
+                <div id="imageContainer" class="image-container" style="display: none;">
+                    <img src="images/Realisasi.png" alt="Rekap Tabel" />
+                </div>
         <div id="map">
         </div>
         <script src="js/qgis2web_expressions.js"></script>
