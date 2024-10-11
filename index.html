@@ -93,34 +93,43 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
-	 .symbol-container {
+	 /* Tombol untuk memunculkan diagram */
+         #toggleButton {
             position: absolute;
-            top: 220px; /* Sesuaikan posisi vertikal sesuai kebutuhan */
-            left: 11px; /* Sesuaikan posisi horizontal sesuai kebutuhan */
+            top: 220px;
+            left: 10px;
+            z-index: 1100;
+            background-color: #fff;
+            padding: 5px;
+            border: 2px solid #333;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 6px;
+        }
+
+        /* Container diagram, awalnya disembunyikan */
+        #chartContainer {
+            width: 1000px;
+            height: 500px;
+            position: absolute;
+            left: 60px; /* Muncul di sebelah kanan halaman */
+            top: 30px;
+            background-color: white;
+            border: 2px solid rgb(0, 0, 0);
+            padding: 40px;
+            display: none; /* Disembunyikan awalnya */
             z-index: 1000;
+            box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.1);
+        }
+        h3 {
+            margin-top: 0px;  /* Kurangi jarak antara judul dan bolder */
             text-align: center;
         }
 
-        .symbol-button {
-            background-color: #f5f5f6;
-            color: rgb(9, 7, 7);
-            padding: 8px;
-            font-size: 15px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-
-        .symbol-button:hover {
-        }
-        .image-container img {
-            max-width: 3500%;
-            height: auto;
-            position: absolute;
-            top: 1px;
-            left: 40px;
-            display: inline-block;
+        /* Atur tampilan canvas chart */
+        #myBarChart {
+            width: 80%;  /* Ukuran full dalam container */
+            height: 80%; /* Full height sesuai container */
         }
         </style>
         <title>Replanting PT. BAS 2024</title>
@@ -181,11 +190,17 @@
                 <button id="toggleImageBtn" class="symbol-button">
                     <i class="fas fa-chart-bar"></i> <!-- Menggunakan ikon FontAwesome -->
                 </button>
-                <div id="imageContainer" class="image-container" style="display: none;">
-                    <img src="images/Realisasi.png" alt="Rekap Tabel"/>
+                          <!-- Tombol untuk memunculkan diagram -->
+                <div id="toggleButton">📊</div>
+                <!-- Container untuk diagram yang disembunyikan -->
+                <div id="chartContainer">
+                <h3>Progres Replanting PT.BAS (Update sd September 2024)</h3>
+                <canvas id="myBarChart"></canvas>
                 </div>
         <div id="map">
         </div>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
         <script src="js/L.Control.Layers.Tree.min.js"></script>
@@ -227,14 +242,76 @@
               });
             }
         }
-	document.getElementById("toggleImageBtn").addEventListener("click", function() {
-                var imageContainer = document.getElementById("imageContainer");
-                if (imageContainer.style.display === "none") {
-                    imageContainer.style.display = "block";
-                } else {
-                    imageContainer.style.display = "none";
+	// Data pekerjaan dari tabel
+        var pekerjaan = ['Chiping', 'Jalan Mr', 'Jalan Cr', 'Jalan Selendang', 'Teras', 'Lubang Tanam', 'Buat Parit 1x1x1', 'Buat Parit 2x2x1', 'Tapak Timbun'];
+        var vol_spk = [154306, 2788, 35609, 32362, 619680, 177888, 53943, 1992, 5734];
+        var realisasi = [119031, 3213, 13017, 14281, 382449, 89458, 35488, 1457, 4673];
+        var sisa_spk = [35275, 0, 22592, 18081, 237231, 88330, 18455, 535, 1061];
+
+        // Menginisialisasi Chart.js di dalam canvas
+        var ctx = document.getElementById('myBarChart').getContext('2d');
+        var myBarChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: pekerjaan,
+                datasets: [
+                    {
+                        label: 'RENCANA',
+                        data: vol_spk,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'REALISASI',
+                        data: realisasi,
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'SISA RENCANA',
+                        data: sisa_spk,
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'top',
+                        offset: 1   ,
+                        formatter: function(value) {
+                            return value.toLocaleString(); // Format ribuan
+                        },
+                        color: 'black',
+                        font: {
+                            weight: 'bold',
+                            size: 9
+                        }
+                    }
                 }
+            },
+            plugins: [ChartDataLabels]
         });
+
+        // Tambahkan fungsi JavaScript untuk toggle diagram
+        document.getElementById('toggleButton').onclick = function() {
+            var chartContainer = document.getElementById('chartContainer');
+            if (chartContainer.style.display === 'none' || chartContainer.style.display === '') {
+                chartContainer.style.display = 'block'; // Munculkan chart
+            } else {
+                chartContainer.style.display = 'none';  // Sembunyikan chart
+            }
+        }
         var map = L.map('map', {
             zoomControl:false, maxZoom:18, minZoom:1
         })
