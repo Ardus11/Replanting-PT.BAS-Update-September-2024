@@ -106,7 +106,6 @@
             font-size: 18px;
             border-radius: 6px;
         }
-
         /* Container diagram, awalnya disembunyikan */
         #chartContainer {
             width: 1000px;
@@ -130,6 +129,47 @@
         #myBarChart {
             width: 80%;  /* Ukuran full dalam container */
             height: 80%; /* Full height sesuai container */
+        }
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #tableSymbol {
+            position: absolute;
+            top: 268px;
+            left: 10px;
+            z-index: 1100;
+            background-color: #fff;
+            padding: 5px;
+            border: 2px solid #333;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 6px;
+        }
+        #dataTableContainer {
+            display: none; /* Tabel disembunyikan */
+            position: absolute;
+            top: 200px; /* Sesuaikan posisi sesuai kebutuhan */
+            left: 60px;
+            width: 530px; /* Sesuaikan lebar tabel */
+            background-color: rgb(255, 255, 255);
+            border: 2px solid rgb(0, 0, 0);
+            padding: 20px;
+            z-index: 1000;
+            box-shadow: 10px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 3px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
         }
         </style>
         <title>Replanting PT. BAS 2024</title>
@@ -197,6 +237,110 @@
                 <h3>Progres Replanting PT.BAS (Update sd September 2024)</h3>
                 <canvas id="myBarChart"></canvas>
                 </div>
+                <div id="tableSymbol" onclick="toggleTable()">📝</div>
+                <div id="dataTableContainer">
+                    <div id="dataTable">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>PEKERJAAN</th>
+                                    <th>SAT</th>
+                                    <th>RENCANA</th>
+                                    <th>REALISASI</th>
+                                    <th>SISA RENCANA</th>
+                                    <th>BAPP</th>
+                                    <th>CIP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Chiping</td>
+                                    <td>Pkk</td>
+                                    <td>154,306</td>
+                                    <td>119,031</td>
+                                    <td>35,275</td>
+                                    <td>116,706</td>
+                                    <td>2,325</td>
+                                </tr>
+                                <tr>
+                                    <td>Jalan Mr</td>
+                                    <td>Mtr</td>
+                                    <td>2,788</td>
+                                    <td>3,213</td>
+                                    <td>(425)</td>
+                                    <td>3,213</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>Jalan Cr</td>
+                                    <td>Mtr</td>
+                                    <td>35,609</td>
+                                    <td>13,017</td>
+                                    <td>22,592</td>
+                                    <td>12,427</td>
+                                    <td>590</td>
+                                </tr>
+                                <tr>
+                                    <td>Jalan Selendang</td>
+                                    <td>Mtr</td>
+                                    <td>32,362</td>
+                                    <td>14,281</td>
+                                    <td>18,081</td>
+                                    <td>14,281</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>Teras</td>
+                                    <td>Mtr</td>
+                                    <td>619,680</td>
+                                    <td>382,449</td>
+                                    <td>237,231</td>
+                                    <td>376,949</td>
+                                    <td>5,500</td>
+                                </tr>
+                                <tr>
+                                    <td>Lubang Tanam</td>
+                                    <td>Ttk</td>
+                                    <td>177,888</td>
+                                    <td>89,458</td>
+                                    <td>88,430</td>
+                                    <td>71,503</td>
+                                    <td>17,955</td>
+                                </tr>
+                                <tr>
+                                    <td>Buat Parit 1x1x1</td>
+                                    <td>Mtr</td>
+                                    <td>53,943</td>
+                                    <td>35,488</td>
+                                    <td>18,455</td>
+                                    <td>35,488</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>Buat Parit 2x2x1</td>
+                                    <td>Mtr</td>
+                                    <td>1,992</td>
+                                    <td>1,457</td>
+                                    <td>535</td>
+                                    <td>1,457</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>Tapak Timbun</td>
+                                    <td>Ttk</td>
+                                    <td>5,734</td>
+                                    <td>4,673</td>
+                                    <td>1,061</td>
+                                    <td>4,673</td>
+                                    <td>-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        <div id="map">
+        </div>
         <div id="map">
         </div>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -310,6 +454,15 @@
                 chartContainer.style.display = 'block'; // Munculkan chart
             } else {
                 chartContainer.style.display = 'none';  // Sembunyikan chart
+            }
+        }
+	// Fungsi Toggle Tabel
+         function toggleTable() {
+            var tableContainer = document.getElementById("dataTableContainer");
+            if (tableContainer.style.display === "none" || tableContainer.style.display === "") {
+                tableContainer.style.display = "block"; // Tampilkan tabel
+            } else {
+                tableContainer.style.display = "none"; // Sembunyikan tabel
             }
         }
         var map = L.map('map', {
