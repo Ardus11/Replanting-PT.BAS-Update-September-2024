@@ -20,6 +20,31 @@
             padding: 0;
             margin: 0;
         }
+	.leaflet-popup-content-wrapper {
+            width:max-content;
+            max-width: 400px;
+        }
+
+        .leaflet-popup-content table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .leaflet-popup-content th, .leaflet-popup-content td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .leaflet-popup-content th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .leaflet-popup-content td {
+            word-wrap: break-word;
+        }
         .login-container {
             display: flex;
             justify-content: center;
@@ -66,7 +91,7 @@
             background-color: #f5f5f6;
             color: rgb(9, 7, 7);
             padding: 5px;
-            font-size: 16px;
+            font-size: 14px;
             border: none;
             cursor: pointer;
 	    font-weight: bold;
@@ -165,8 +190,9 @@
             border: 1px solid black;
         }
         th, td {
-            padding: 3px;
-            text-align: left;
+            border: 1px solid black; /* Border tabel */
+            text-align: center; /* Penempatan teks di tengah */
+            padding: 8px;
         }
         th {
             background-color: #f2f2f2;
@@ -215,7 +241,7 @@
                         REPLANTING PT. BAS TAHUN 2024
                     </h1> 
                 <div class="dropdown">
-                            <button class="dropbtn">Open File</MENU:toolbar></MEnu:context></MEnu:c></button>
+                            <button class="dropbtn">📂Open File</MENU:toolbar></MEnu:context></MEnu:c></button>
                             <div class="dropdown-content">
                                 <a href="https://docs.google.com/spreadsheets/d/1YRmBLuTgQW5mY2DyHuN9WaMXLgcpawcg/edit?usp=sharing&ouid=113655309043540787502&rtpof=true&sd=true" target="_blank">Rekap Data</a>
                                 <a href="https://drive.google.com/file/d/1O7K88tK_lX-eMzoc_b5AkU7sXMUcZN3H/view?usp=sharing" target="_blank">Peta Cetak(Pdf)</a>
@@ -242,6 +268,7 @@
                     <div id="dataTable">
                         <table>
                             <thead>
+				<h3>Tabel Progres Replanting PT.BAS (Update sd September 2024)</h3>
                                 <tr>
                                     <th>PEKERJAAN</th>
                                     <th>SAT</th>
@@ -546,55 +573,55 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">Blok :</th>\
+                        <th scope="row">Blok</th>\
                         <td class="visible-with-data" id="BLOK">' + (feature.properties['BLOK'] !== null ? autolinker.link(feature.properties['BLOK'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Luas :</th>\
+                        <th scope="row">Luas</th>\
                         <td class="visible-with-data" id="LUAS">' + (feature.properties['LUAS'] !== null ? autolinker.link(feature.properties['LUAS'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Divisi :</th>\
+                        <th scope="row">Divisi</th>\
                         <td class="visible-with-data" id="DIVISI">' + (feature.properties['DIVISI'] !== null ? autolinker.link(feature.properties['DIVISI'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Estate :</th>\
+                        <th scope="row">Estate</th>\
                         <td class="visible-with-data" id="ESTATE">' + (feature.properties['ESTATE'] !== null ? autolinker.link(feature.properties['ESTATE'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Realisasi Chiping :</th>\
+                        <th scope="row">Realisasi Chiping</th>\
                         <td class="visible-with-data" id="REAL.CHIPI">' + (feature.properties['REAL.CHIPI'] !== null ? autolinker.link(feature.properties['REAL.CHIPI'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Realisasi Jalan Mr : </th>\
+                        <th scope="row">Realisasi Jalan Mr</th>\
                         <td class="visible-with-data" id="REAL. JALA">' + (feature.properties['REAL. JALA'] !== null ? autolinker.link(feature.properties['REAL. JALA'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Realisasi Jalan Cr :</th>\
+                        <th scope="row">Realisasi Jalan Cr</th>\
                         <td class="visible-with-data" id="REAL. JALA_1">' + (feature.properties['REAL. JALA_1'] !== null ? autolinker.link(feature.properties['REAL. JALA_1'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Realisasi Jalan Selendang :</th>\
+                        <th scope="row">Realisasi Jalan Selendang</th>\
                         <td class="visible-with-data" id="REAL.JALAN">' + (feature.properties['REAL.JALAN'] !== null ? autolinker.link(feature.properties['REAL.JALAN'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Realisasi Parit 1x1x1 :</th>\
+                        <th scope="row">Realisasi Parit 1x1x1</th>\
                         <td class="visible-with-data" id="REAL.PARIT">' + (feature.properties['REAL.PARIT'] !== null ? autolinker.link(feature.properties['REAL.PARIT'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Realisasi Parit 2x2x1 :</th>\
+                        <th scope="row">Realisasi Parit 2x2x1</th>\
                         <td class="visible-with-data" id="REAL.PARIT_1">' + (feature.properties['REAL.PARIT_1'] !== null ? autolinker.link(feature.properties['REAL.PARIT_1'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Realisasi Teras :</th>\
+                        <th scope="row">Realisasi Teras</th>\
                         <td class="visible-with-data" id="REAL.TERAS">' + (feature.properties['REAL.TERAS'] !== null ? autolinker.link(feature.properties['REAL.TERAS'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Realisasi Tapak Timbun :</th>\
+                        <th scope="row">Realisasi Tapak Timbun</th>\
                         <td class="visible-with-data" id="REAL.TAPAK">' + (feature.properties['REAL.TAPAK'] !== null ? autolinker.link(feature.properties['REAL.TAPAK'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Realisasi Lubang Tanam :</th>\
+                        <th scope="row">Realisasi Lubang Tanam</th>\
                         <td class="visible-with-data" id="REAL.LUBAN">' + (feature.properties['REAL.LUBAN'] !== null ? autolinker.link(feature.properties['REAL.LUBAN'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
