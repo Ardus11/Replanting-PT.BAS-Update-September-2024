@@ -185,20 +185,28 @@
         table {
             width: 100px;
             border-collapse: collapse;
+	    font-family: Arial, sans-serif;
         }
         table, th, td {
             border: 1px solid black;
-        }
-        th, td {
-            border: 1px solid black; /* Border tabel */
-            text-align: center; /* Penempatan teks di tengah */
-            padding: 8px;
+	    padding: 8px;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #0c58ca5d;
+            color: rgb(30, 21, 21);
+            text-align: center;
         }
-	 td {
+        td {
             white-space: nowrap; /* Mencegah teks di dalam kolom menjadi terlalu tinggi */
+        }
+        tr:hover {
+             background-color: #1d1c1c26;
+        }
+             caption {
+             caption-side: top;
+             font-size: 1.5em;
+             padding: 10px;
+             color: #ca6b6be8;
         }
         </style>
         <title>Replanting PT. BAS 2024</title>
@@ -416,67 +424,74 @@
               });
             }
         }
-	// Data pekerjaan dari tabel
-        var pekerjaan = ['Chiping', 'Jalan Mr', 'Jalan Cr', 'Jalan Selendang', 'Teras', 'Lubang Tanam', 'Buat Parit 1x1x1', 'Buat Parit 2x2x1', 'Tapak Timbun'];
-        var vol_spk = [154306, 2788, 35609, 32362, 619680, 177888, 53943, 1992, 5734];
-        var realisasi = [119031, 3213, 13017, 14281, 382449, 89458, 35488, 1457, 4673];
-        var sisa_spk = [35275, 0, 22592, 18081, 237231, 88330, 18455, 535, 1061];
-
         // Menginisialisasi Chart.js di dalam canvas
         var ctx = document.getElementById('myBarChart').getContext('2d');
         var myBarChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: pekerjaan,
-                datasets: [
-                    {
-                        label: 'RENCANA',
-                        data: vol_spk,
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'REALISASI',
-                        data: realisasi,
-                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                        borderColor: 'rgba(255, 159, 64, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'SISA RENCANA',
-                        data: sisa_spk,
-                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                        borderColor: 'rgba(153, 102, 255, 1)',
-                        borderWidth: 1
-                    }
-                ]
+        labels: ['Chiping', 'Jalan Mr', 'Jalan Cr', 'Jalan Selendang', 'Teras', 'Lubang Tanam', 'Buat Parit 1x1x1', 'Buat Parit 2x2x1', 'Tapak Timbun'],
+        datasets: [
+            {
+                label: 'RENCANA',
+                data: [154306, 2788, 35609, 32362, 619680, 177888, 53943, 1992, 5734],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
             },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+            {
+                label: 'REALISASI',
+                data: [119031, 3213, 13017, 14281, 382449, 89458, 35488, 1457, 4673],
+                backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                borderColor: 'rgba(255, 159, 64, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'BAPP',
+                data: [116706, 3213, 12427, 14281, 376949, 71503, 35488, 1457, 4673],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'CIP',
+                data: [2325, 0, 590, 0, 5500, 17955, 0, 0, 0],
+                backgroundColor: 'rgba(43, 206, 86, 0.2)',
+                borderColor: 'rgba(255, 206, 86, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'SISA RENCANA',
+                data: [35275, 0, 22592, 18081, 237231, 88430, 18455, 535, 1061],
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1
+            }
+           
+        ]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        plugins: {
+            datalabels: {
+                anchor: 'end',
+                align: 'end',
+                color: 'black',
+                font: {
+                    size: 10
                 },
-                plugins: {
-                    datalabels: {
-                        anchor: 'end',
-                        align: 'top',
-                        offset: 1   ,
-                        formatter: function(value) {
-                            return value.toLocaleString(); // Format ribuan
-                        },
-                        color: 'black',
-                        font: {
-                            weight: 'bold',
-                            size: 9
-                        }
-                    }
+                rotation: 270,   // Menjaga teks tetap horizontal
+                formatter: function(value) {
+                    return value.toLocaleString(); // Menambahkan format angka
                 }
-            },
-            plugins: [ChartDataLabels]
-        });
-
+            }
+        }
+    },
+    plugins: [ChartDataLabels]  // Memanggil plugin Data Labels
+});
         // Tambahkan fungsi JavaScript untuk toggle diagram
         document.getElementById('toggleButton').onclick = function() {
             var chartContainer = document.getElementById('chartContainer');
