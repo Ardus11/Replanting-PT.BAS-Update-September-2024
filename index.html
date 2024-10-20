@@ -6,6 +6,7 @@
         <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
         <link rel="stylesheet" href="css/L.Control.Locate.min.css">
@@ -270,13 +271,13 @@
                     <i class="fas fa-chart-bar"></i> <!-- Menggunakan ikon FontAwesome -->
                 </button>
                           <!-- Tombol untuk memunculkan diagram -->
-                <div id="toggleButton">📈Chart</div>
+                <div id="toggleButton"><i class="fas fa-chart-bar"></i> Chart</div>
                 <!-- Container untuk diagram yang disembunyikan -->
                 <div id="chartContainer">
                 <h3>Progres Replanting PT.BAS (Update sd September 2024)</h3>
                 <canvas id="myBarChart"></canvas>
                 </div>
-                <div id="tableSymbol" onclick="toggleTable()">📅Table</div>
+                <div id="tableSymbol" onclick="toggleTable()"><i class="fas fa-table"></i> Table</div>
                 <div id="dataTableContainer">
                     <div id="dataTable">
                         <table>
